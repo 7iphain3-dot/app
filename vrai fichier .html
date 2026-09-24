@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071a3a">
+<title>SkyCap AI</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#071a3a;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#101a35}
+.app{max-width:560px;min-height:100vh;margin:auto;background:#f5f7fb;padding-bottom:85px}
+header{background:linear-gradient(145deg,#061a39,#12466f);color:#fff;padding:22px 17px 20px}
+.brand{font-size:29px;font-weight:900}.brand i{color:#55c3ff;font-style:normal}
+.top{display:flex;justify-content:space-between;align-items:center}.xp{background:#ffffff18;border:1px solid #ffffff22;padding:10px 13px;border-radius:25px;font-weight:900}
+.tag{font-size:11px;letter-spacing:.12em;color:#61c8ff;font-weight:900;margin-top:20px}
+h1{font-size:30px;line-height:1.05;margin:7px 0 10px;letter-spacing:-1px}
+header p{color:#d3e0ef;line-height:1.45;font-size:14px}
+button{font:inherit;cursor:pointer}.primary{border:0;background:linear-gradient(90deg,#4bbaff,#247bf2);color:#fff;border-radius:15px;padding:14px 17px;font-weight:900}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);background:#e5e9f1}.stat{background:#fff;text-align:center;padding:14px}.stat b{display:block;font-size:20px}.stat small{color:#758096}
+section{padding:18px 15px}.section-head{display:flex;justify-content:space-between;align-items:center}.section-head h2{margin:0 0 9px}.link{border:0;background:none;color:#227de5;font-weight:800}
+.card{background:#fff;border:1px solid #e3e8f0;border-radius:19px;padding:15px;margin:9px 0;display:flex;gap:12px;box-shadow:0 6px 18px #10203b0a}.icon{width:43px;height:43px;border-radius:13px;background:#eaf4ff;display:grid;place-items:center;font-size:20px}.card h3{margin:3px 0;font-size:16px}.card p{margin:0;color:#718097;font-size:12px;line-height:1.4}.locked{opacity:.52}.bar{height:6px;background:#edf0f5;border-radius:8px;margin-top:10px;overflow:hidden}.bar i{display:block;height:100%;background:#2386f5}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(560px,100%);height:74px;background:#fff;border-top:1px solid #e3e7ee;display:grid;grid-template-columns:repeat(3,1fr);z-index:10}.nav button{border:0;background:none;color:#7d8799;font-size:20px;font-weight:800}.nav button.active{color:#2381e9}.nav span{display:block;font-size:10px;margin-top:2px}
+.lesson-top{background:#fff;height:70px;padding:0 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #e3e7ee;position:sticky;top:0;z-index:5}.back{border:0;background:#edf3fa;border-radius:11px;width:38px;height:38px;font-size:25px}.lesson-top div:nth-child(2){flex:1}.lesson-top small{display:block;color:#758096}.content{padding:18px 15px}.kicker{font-size:11px;color:#2381e9;font-weight:900;letter-spacing:.1em}.scene{height:180px;border-radius:20px;margin:12px 0;background:linear-gradient(150deg,#1c4269,#8ba2b9);position:relative;overflow:hidden}.scene:before{content:"✈";position:absolute;font-size:145px;right:-5px;top:28px;color:#ffffff30;transform:rotate(-7deg)}.scene:after{content:"STAND 14";position:absolute;left:12px;top:12px;background:#071a3ddd;color:#fff;padding:9px 11px;border-radius:11px;font-weight:900}
+.npc{background:#fff;border:1px solid #e2e7ef;border-radius:17px;padding:13px;display:flex;gap:11px}.avatar{width:43px;height:43px;background:#eaf4ff;border-radius:13px;display:grid;place-items:center;font-size:23px}.npc small{color:#2381e9;font-weight:900}.npc p{margin:5px 0 0;line-height:1.4}
+.hint{background:#eee9ff;color:#4d2ab9;border-radius:17px;padding:13px;margin-top:10px}.hint ul{margin:7px 0 0;padding-left:20px}.answer{background:#fff;border:1px solid #e2e7ef;border-radius:17px;padding:11px;margin-top:10px}.answer textarea{width:100%;height:72px;border:0;outline:0;resize:none;font-size:16px}.mic,.validate{width:100%;padding:12px;border-radius:13px;font-weight:900}.mic{border:1px solid #dbe6f4;background:#edf5ff;color:#227de5}.validate{border:0;background:#071a3a;color:#fff;margin-top:8px}.feedback{margin-top:10px;border-radius:17px;padding:14px;line-height:1.5}.ok{background:#e6fff4;color:#09633f}.bad{background:#fff0f3;color:#9c1d3b}.next{margin-top:10px;width:100%;border:0;border-radius:13px;padding:12px;background:#fff;color:inherit;font-weight:900}.word{background:#fff;border:1px solid #e2e7ef;border-radius:14px;padding:13px;margin:7px 0;display:grid;grid-template-columns:1fr 1fr auto}.word span{color:#748096;font-size:13px}.word button{border:0;background:#edf5ff;border-radius:8px}
+</style>
+</head>
+<body><div id="app" class="app"></div>
+<script>
+const lessons=[
+["Aircraft Arrival","Captain","Good evening. We are on stand 14. Is everything ready for our turnaround?",["Yes, everything is ready.","ground handling team","equipment"],["yes everything is ready","we are ready for the turnaround","everything is ready","all set"],"ready = prêt. Ici, on utilise l’adjectif “ready”.","Yes, Captain. Everything is ready for the turnaround."],
+["GPU Check","Ramp Lead","The aircraft needs ground power. Can you check the GPU?",["Sure, I can check it.","GPU connected","ground power"],["sure i can check it","i can check the gpu","yes i can check"],"can + verbe : “I can check”, pas “I can checking”.","Sure. I’ll check the GPU and confirm."],
+["FOD Safety","Ramp Lead","There is FOD near the aircraft. What will you do?",["I’ll remove it.","foreign object debris","before departure"],["i will remove it","i'll remove it","remove the fod","i will pick it up"],"Pour une action décidée maintenant : “I’ll + verbe”.","I’ll remove the FOD before departure."],
+["Refueling Area","Ramp Agent","Is the refueling area clear?",["Yes, it is clear.","refueling","clear"],["yes it is clear","the area is clear","yes clear"],"Pour un état : “It is + adjectif”.","Yes, the area is clear for refueling."],
+["Pushback Ready","Captain","Are we ready for pushback?",["Yes, we are.","pushback clearance","ready"],["yes we are","we are ready","yes we are ready","ready for pushback"],"Avec “we”, on utilise “are” : “We are ready.”","Yes, Captain. We are ready for pushback."],
+["Cockpit Contact","Captain","Can you confirm the boarding status?",["Boarding is complete.","boarding","complete"],["boarding is complete","boarding complete","boarding is finished"],"“Boarding is complete” est une formulation professionnelle simple.","Boarding is complete. All passengers are on board."],
+["Baggage Team","Baggage Manager","Are all bags loaded?",["Yes, all bags are loaded.","bags","loaded"],["all bags are loaded","yes all bags are loaded","bags are loaded"],"“loaded” décrit l’état des bagages après chargement.","Yes, all bags are loaded and secured."],
+["Catering","Ramp Lead","Catering is arriving. Can you keep the stand clear?",["Yes, I’ll keep it clear.","catering","keep clear"],["yes i'll keep it clear","i will keep it clear","keep it clear"],"keep + complément + adjectif : “keep the stand clear”.","Yes. I’ll keep the stand clear for the catering vehicle."],
+["Radio Confirmation","Ramp Lead","Ramp to cockpit. Do you copy?",["Yes, I copy.","copy","go ahead"],["yes i copy","i copy","copy"],"“I copy” confirme que tu as reçu le message radio.","Yes, I copy. Go ahead."],
+["Departure Check","Captain","Can you confirm the doors are closed?",["Yes, the doors are closed.","doors","closed"],["the doors are closed","yes the doors are closed","doors closed"],"Après “are”, on utilise ici “closed”.","Confirmed. The doors are closed."],
+["Delay","Captain","What is causing the delay?",["We are waiting for…","delay","waiting for"],["we are waiting for","technical issue","late baggage","weather"],"“We are waiting for…” = nous attendons… Attention à “for”.","We are waiting for the baggage team."],
+["Loadsheet Mismatch","Load Controller","The figures do not match. Can you check the information?",["I’ll check it.","figures","do not match"],["i'll check it","i will check it","check the information"],"“I’ll check it” est adapté pour une action immédiate.","I’ll check the information and get back to you."],
+["Weather","Ramp Lead","There is heavy rain. Is the operation safe to continue?",["We should stop.","heavy rain","safe to continue"],["we should stop","not safe","we should wait","wait until"],"should + verbe sert à donner une recommandation.","We should wait until conditions improve."],
+["Irregularity Report","Ramp Lead","There is damage on the aircraft door. What do you report?",["I have found…","damage","aircraft door"],["i have found","there is damage","damage on the"],"“There is + nom” permet de signaler rapidement un problème.","I have found damage on the aircraft door."],
+["Emergency Communication","Ramp Lead","Stop all ground operations. Do you understand?",["Yes, understood.","stop operations","understood"],["yes understood","understood","i understand","operations stopped"],"En radio, “Understood” est court et clair.","Understood. Ground operations are stopped."]
+];
+
+let state=JSON.parse(localStorage.getItem("skycap_simple")||'{"xp":0,"done":[]}');
+const norm=s=>s.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+function save(){localStorage.setItem("skycap_simple",JSON.stringify(state))}
+function home(){
+let done=state.done.length;
+app.innerHTML=`<header><div class="top"><div><div class="brand">✈ SkyCap <i>AI</i></div><small>ENGLISH FOR AIRPORT OPERATIONS</small></div><div class="xp">⭐ ${state.xp} XP</div></div><div class="tag">YOUR RAMP ENGLISH COACH</div><h1>Parle anglais comme sur le tarmac.</h1><p>Entraîne-toi aux situations réelles d’un Agent de Trafic.</p><button class="primary" onclick="lesson(${Math.min(done,14)})">▶ Continuer</button></header>
+<div class="stats"><div class="stat"><b>${done}/15</b><small>leçons</small></div><div class="stat"><b>${state.xp}</b><small>XP</small></div><div class="stat"><b>${Math.floor(state.xp/50)+1}</b><small>niveau</small></div></div>
+<section><div class="section-head"><h2>Ton parcours</h2><button class="link" onclick="vocab()">Vocabulaire</button></div>${[1,2,3].map((m)=>{let d=state.done.filter(i=>Math.floor(i/5)+1===m).length;return `<div class="card ${m>1&&d===0&&done<5*(m-1)?"locked":""}"><div class="icon">${m===1?"✈":m===2?"📻":"⚠️"}</div><div><small>MODULE ${m}</small><h3>${["Tarmac Basics & Equipment","Turnaround & Radio Communication","Irregularities & Emergency"][m-1]}</h3><p>${["Ramp, GPU, FOD, refueling, pushback","Cockpit, boarding, catering, baggage, radio","Delays, loadsheet, weather, irregularities"][m-1]}</p><div class="bar"><i style="width:${d*20}%"></i></div><small>${d}/5 leçons</small></div></div>`}).join("")}</section>
+<nav class="nav"><button class="active" onclick="home()">⌂<span>Accueil</span></button><button onclick="lesson(${Math.min(done,14)})">🎙<span>Pratiquer</span></button><button onclick="vocab()">▣<span>Vocabulaire</span></button></nav>`;
+}
+function lesson(i){
+if(i>=15)i=14;let l=lessons[i];let mod=Math.floor(i/5)+1, n=i%5+1;
+app.innerHTML=`<div class="lesson-top"><button class="back" onclick="home()">‹</button><div><b>MODULE ${mod}</b><small>${l[0]} · ${n}/5</small></div><div class="xp">${state.xp} XP</div></div><main class="content"><div class="kicker">STAND 14 · MODULE ${mod}</div><h1>${l[0]}</h1><div class="scene"></div><div class="npc"><div class="avatar">${l[1]==="Captain"?"👨‍✈️":"🦺"}</div><div><small>${l[1]}</small><p>“${l[2]}”</p></div></div><div class="hint"><b>💡 INDICES</b><ul>${l[3].map(x=>`<li>${x}</li>`).join("")}</ul></div><div class="answer"><textarea id="a" placeholder="Réponds en anglais…"></textarea><button class="mic" id="mic">🎙 Parler en anglais</button><button class="validate" onclick="check(${i})">Valider</button></div><div id="f"></div></main>`;
+mic();
+}
+function check(i){
+let t=norm(document.querySelector("#a").value);
+if(!t){f("bad","⚠️ Réponse en anglais requise pour valider l’exercice.");return}
+let ok=lessons[i][4].some(x=>t.includes(norm(x)));
+if(ok){
+if(!state.done.includes(i)){state.done.push(i);state.xp+=10;save()}
+let next=i<14?`<button class="next" onclick="lesson(${i+1})">Exercice suivant →</button>`:`<button class="next" onclick="home()">Terminer →</button>`;
+f("ok",`<b>✓ Correct · +10 XP</b><br>${lessons[i][6]}<br><small>${lessons[i][5]}</small>${next}`);
+}else f("bad",`<b>Pas encore.</b><br>${lessons[i][5]}<br><strong>Essaie :</strong> ${lessons[i][3][0]}`);
+}
+function f(c,t){let e=document.querySelector("#f");e.className="feedback "+c;e.innerHTML=t}
+function mic(){
+let b=document.querySelector("#mic"),R=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(!R){b.textContent="🎙 Micro non disponible";return}
+let r=new R();r.lang="en-US";r.interimResults=false;r.maxAlternatives=1;
+b.onclick=()=>{r.start();b.textContent="🔴 Écoute…"};r.onresult=e=>{document.querySelector("#a").value=e.results[0][0].transcript;b.textContent="🎙 Parler en anglais"};r.onend=()=>b.textContent="🎙 Parler en anglais";
+}
+const words=[["stand","poste de stationnement"],["turnaround","rotation / opérations au sol"],["GPU","Ground Power Unit"],["FOD","Foreign Object Debris"],["refueling","avitaillement"],["pushback","repoussage"],["boarding","embarquement"],["baggage","bagages"],["catering","service à bord"],["copy","bien reçu"],["delay","retard"],["loadsheet","feuille de chargement"],["weather","météo"],["damage","dégât"],["understood","compris"]];
+function vocab(){app.innerHTML=`<div class="lesson-top"><button class="back" onclick="home()">‹</button><div><b>SKYCAP AI</b><small>Vocabulaire terrain</small></div></div><main class="content"><div class="kicker">AIRPORT ENGLISH</div><h1>Vocabulaire essentiel</h1>${words.map(w=>`<div class="word"><b>${w[0]}</b><span>${w[1]}</span><button onclick="speechSynthesis.speak(new SpeechSynthesisUtterance('${w[0]}'))">🔊</button></div>`).join("")}</main><nav class="nav"><button onclick="home()">⌂<span>Accueil</span></button><button onclick="lesson(${Math.min(state.done.length,14)})">🎙<span>Pratiquer</span></button><button class="active" onclick="vocab()">▣<span>Vocabulaire</span></button></nav>`}
+home();
+</script></body></html>
